@@ -71,6 +71,10 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+vim.keymap.set('i', 'C-s', function()
+  vim.cmd.Save()
+end)
+
 vim.api.nvim_set_keymap('i', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('v', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 
