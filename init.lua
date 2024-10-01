@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
@@ -71,11 +72,8 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.keymap.set('i', 'C-s', function()
-  vim.cmd.Save()
-end)
-
 vim.api.nvim_set_keymap('i', '<c-s>', '<Esc>:w<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('v', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 
 vim.keymap.set('n', '<c-e>', function()
@@ -140,6 +138,53 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tomtom/tcomment_vim',
+  {
+    'smjonas/inc-rename.nvim',
+    config = function()
+      require('inc_rename').setup()
+      vim.keymap.set('n', '<leader>rn', ':IncRename ')
+    end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local harpoon = require 'harpoon'
+
+      -- REQUIRED
+      harpoon:setup()
+      -- REQUIRED
+
+      vim.keymap.set('n', '<leader>a', function()
+        harpoon:list():add()
+      end)
+
+      vim.keymap.set('n', '<C-e>', function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end)
+      vim.keymap.set('n', '<C-y>', function()
+        harpoon:list():select(1)
+      end)
+      vim.keymap.set('n', '<C-u>', function()
+        harpoon:list():select(2)
+      end)
+      vim.keymap.set('n', '<C-i>', function()
+        harpoon:list():select(3)
+      end)
+      vim.keymap.set('n', '<C-o>', function()
+        harpoon:list():select(4)
+      end)
+
+      -- Toggle previous & next buffers stored within Harpoon list
+      vim.keymap.set('n', '<C-S-P>', function()
+        harpoon:list():prev()
+      end)
+      vim.keymap.set('n', '<C-S-N>', function()
+        harpoon:list():next()
+      end)
+    end,
+  },
   {
     'kdheepak/lazygit.nvim',
     keys = {
