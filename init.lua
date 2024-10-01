@@ -140,6 +140,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tomtom/tcomment_vim',
+  'michaeljsmith/vim-indent-object',
   {
     'kdheepak/lazygit.nvim',
     keys = {
