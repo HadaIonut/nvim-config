@@ -138,6 +138,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tomtom/tcomment_vim',
+  'mhinz/vim-mix-format',
   'michaeljsmith/vim-indent-object',
   {
     'smjonas/inc-rename.nvim',
@@ -584,3 +585,5 @@ require('lazy').setup({
     },
   },
 })
+
+require('lspconfig').gleam.setup {}
