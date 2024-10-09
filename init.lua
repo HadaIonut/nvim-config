@@ -76,7 +76,7 @@ vim.api.nvim_set_keymap('i', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('v', '<c-s>', '<Esc>:w<CR>', { noremap = true })
 
-vim.keymap.set('n', '<c-e>', function()
+vim.keymap.set('n', '<leader>ge', function()
   local pos = vim.api.nvim_win_get_cursor(0)
 
   vim.api.nvim_buf_set_lines(vim.api.nvim_get_current_buf(), pos[1], pos[1], true, { 'if err != nil {', '\t', '}' })
@@ -172,9 +172,6 @@ require('lazy').setup({
       end)
       vim.keymap.set('n', '<C-i>', function()
         harpoon:list():select(3)
-      end)
-      vim.keymap.set('n', '<C-o>', function()
-        harpoon:list():select(4)
       end)
 
       -- Toggle previous & next buffers stored within Harpoon list
