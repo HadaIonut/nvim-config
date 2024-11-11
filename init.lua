@@ -141,6 +141,12 @@ require('lazy').setup({
   'mhinz/vim-mix-format',
   'michaeljsmith/vim-indent-object',
   {
+    'ribru17/bamboo.nvim',
+    init = function()
+      vim.cmd.colorscheme 'bamboo'
+    end,
+  },
+  {
     'smjonas/inc-rename.nvim',
     config = function()
       require('inc_rename').setup()
@@ -520,9 +526,6 @@ require('lazy').setup({
 
   {
     'sainnhe/gruvbox-material',
-    init = function()
-      vim.cmd.colorscheme 'gruvbox-material'
-    end,
   },
 
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
