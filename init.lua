@@ -148,6 +148,19 @@ require('lazy').setup({
   'mhinz/vim-mix-format',
   'michaeljsmith/vim-indent-object',
   {
+    'mbbill/undotree',
+    config = function()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+    end,
+  },
+  {
+
+    'ribru17/bamboo.nvim',
+    init = function()
+      vim.cmd.colorscheme 'bamboo'
+    end,
+  },
+  {
     'smjonas/inc-rename.nvim',
     config = function()
       require('inc_rename').setup()
@@ -165,7 +178,7 @@ require('lazy').setup({
       harpoon:setup()
       -- REQUIRED
 
-      vim.keymap.set('n', '<leader>a', function()
+      vim.keymap.set('n', '<C-a>', function()
         harpoon:list():add()
       end)
 
@@ -527,9 +540,6 @@ require('lazy').setup({
 
   {
     'sainnhe/gruvbox-material',
-    init = function()
-      vim.cmd.colorscheme 'gruvbox-material'
-    end,
   },
 
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
