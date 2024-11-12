@@ -141,6 +141,13 @@ require('lazy').setup({
   'mhinz/vim-mix-format',
   'michaeljsmith/vim-indent-object',
   {
+    'mbbill/undotree',
+    config = function()
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+    end,
+  },
+  {
+
     'ribru17/bamboo.nvim',
     init = function()
       vim.cmd.colorscheme 'bamboo'
@@ -164,7 +171,7 @@ require('lazy').setup({
       harpoon:setup()
       -- REQUIRED
 
-      vim.keymap.set('n', '<leader>a', function()
+      vim.keymap.set('n', '<C-a>', function()
         harpoon:list():add()
       end)
 
