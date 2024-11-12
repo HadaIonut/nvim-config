@@ -13,7 +13,9 @@ vim.g.have_nerd_font = true
 -- Make line numbers default
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -136,7 +138,12 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
-  'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
+  {
+    'pmizio/typescript-tools.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    opts = {},
+  },
+  -- 'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tomtom/tcomment_vim',
   'mhinz/vim-mix-format',
   'michaeljsmith/vim-indent-object',
@@ -584,3 +591,17 @@ require('lazy').setup({
 })
 
 require('lspconfig').gleam.setup {}
+require('lspconfig').emmet_language_server.setup {
+  filetypes = { 'templ' },
+}
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    -- Check if the current buffer is a directory
+    print(vim.fn.expand '%')
+    if vim.fn.isdirectory(vim.fn.expand '%') == 1 then
+      -- Open NERDTree and switch back to the previous window
+      vim.cmd 'Neotree | wincmd p'
+    end
+  end,
+})

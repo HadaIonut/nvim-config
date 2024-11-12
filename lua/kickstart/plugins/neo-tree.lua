@@ -14,6 +14,7 @@ return {
     { '<leader>e', ':Neotree reveal<CR>', desc = 'NeoTree reveal' },
   },
   opts = {
+    hijack_netrw_behaviour = 'open_current',
     filesystem = {
       window = {
         mappings = {
