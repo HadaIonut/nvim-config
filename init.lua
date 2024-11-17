@@ -74,9 +74,9 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-vim.api.nvim_set_keymap('i', '<c-s>', '<Esc>:w<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<c-s>', '<Esc>:w<CR>', { noremap = true })
-vim.api.nvim_set_keymap('v', '<c-s>', '<Esc>:w<CR>', { noremap = true })
+vim.api.nvim_set_keymap('i', '<c-s>', '<Esc>:wa<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<c-s>', '<Esc>:wa<CR>', { noremap = true })
+vim.api.nvim_set_keymap('v', '<c-s>', '<Esc>:wa<CR>', { noremap = true })
 
 vim.keymap.set('n', '<leader>ge', function()
   local pos = vim.api.nvim_win_get_cursor(0)
@@ -139,6 +139,31 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   {
+    'nvimdev/lspsaga.nvim',
+    config = function()
+      require('lspsaga').setup {
+        icons = {
+          code_action_icon = '',
+        },
+        lightbulb = {
+          enable = false,
+        },
+        finder = {
+          keys = {
+            toggle_or_open = '<CR>',
+          },
+        },
+      }
+      vim.keymap.set('n', '<leader>rn', ':Lspsaga rename \n')
+      vim.keymap.set('n', 'K', ':Lspsaga hover_doc \n')
+      vim.keymap.set('n', 'gr', ':Lspsaga finder \n')
+    end,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter', -- optional
+      'nvim-tree/nvim-web-devicons', -- optional
+    },
+  },
+  {
     'pmizio/typescript-tools.nvim',
     dependencies = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
     opts = {},
@@ -158,13 +183,6 @@ require('lazy').setup({
     'ribru17/bamboo.nvim',
     init = function()
       vim.cmd.colorscheme 'bamboo'
-    end,
-  },
-  {
-    'smjonas/inc-rename.nvim',
-    config = function()
-      require('inc_rename').setup()
-      vim.keymap.set('n', '<leader>rn', ':IncRename ')
     end,
   },
   {
@@ -346,7 +364,7 @@ require('lazy').setup({
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
           -- Find references for the word under your cursor.
-          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          -- map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
@@ -367,7 +385,7 @@ require('lazy').setup({
 
           -- Rename the variable under your cursor.
           --  Most Language Servers support renaming across files, etc.
-          map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+          -- map('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
